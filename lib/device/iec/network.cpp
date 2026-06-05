@@ -331,6 +331,16 @@ void iecNetwork::parse_bite()
         Debug_printv("bite_size[%d]", bite_size);
     }
 
+    if (bite_size <= 0)
+    {
+        Debug_printf("parse_bite - invalid bite size");
+        iecStatus.error = NETWORK_ERROR_INVALID_DEVICESPEC;
+        iecStatus.msg = "invalid bite size";
+        iecStatus.channel = channel;
+        iecStatus.connected = 0;
+        return;
+    }
+
     if (channel_data.protocol)
         channel_data.protocol->status(&ns);
 
@@ -574,6 +584,7 @@ void iecNetwork::perform_special_40()
         iecStatus.channel = channel;
         iecStatus.connected = 0;
         iecStatus.msg = "no aux1";
+        return;
     }
 
     cmdFrame.aux1 = atoi(pt[2].c_str());
@@ -584,6 +595,7 @@ void iecNetwork::perform_special_40()
         iecStatus.channel = channel;
         iecStatus.connected = 0;
         iecStatus.msg = "no aux2";
+        return;
     }
 
     cmdFrame.aux2 = atoi(pt[3].c_str());
@@ -675,6 +687,7 @@ void iecNetwork::perform_special_80()
 
         iecStatus.channel = channel;
         iecStatus.msg = "parameter missing";
+        return;
     }
 
     cmdFrame.comnd = pt[0][0];

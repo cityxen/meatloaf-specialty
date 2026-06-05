@@ -359,7 +359,7 @@ bool NetworkProtocolTCP::special_accept_connection()
     if (server->hasClient())
     {
         in_addr_t remoteIP;
-        unsigned char remotePort;
+        uint16_t remotePort;
         char *remoteIPString;
 
         client = server->client();
@@ -391,7 +391,7 @@ bool NetworkProtocolTCP::special_accept_connection()
 bool NetworkProtocolTCP::special_close_client_connection()
 {
     in_addr_t remoteIP;
-    unsigned char remotePort;
+    uint16_t remotePort;
     char *remoteIPString;
 
     if (server == nullptr)
